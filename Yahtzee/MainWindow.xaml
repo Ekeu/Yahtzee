@@ -4,9 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Yahtzee"
+        xmlns:myControl ="clr-namespace:Yahtzee"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+    <StackPanel Orientation="Vertical">
+        <myControl:ControlDie Width="48" Height="48" DieValue="{Binding ElementName=slider, Path=Value}"/>
+        <Slider x:Name="slider" Minimum="1" Maximum="6" IsSnapToTickEnabled="False" TickFrequency="1"/>
+    </StackPanel>
 </Window>
