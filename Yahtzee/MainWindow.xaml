@@ -7,11 +7,22 @@
         xmlns:myControl ="clr-namespace:Yahtzee"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <StackPanel Orientation="Horizontal" Name="diceRoller">
-        <myControl:ControlDie  Width="48" Height="48" DieValue="{Binding MyDice[0].FaceDie.Value}"/>
-        <myControl:ControlDie  Width="48" Height="48" DieValue="{Binding MyDice[1].FaceDie.Value}"/>
-        <myControl:ControlDie  Width="48" Height="48" DieValue="{Binding MyDice[2].FaceDie.Value}"/>
-        <myControl:ControlDie  Width="48" Height="48" DieValue="{Binding MyDice[3].FaceDie.Value}"/>
-        <myControl:ControlDie  Width="48" Height="48" DieValue="{Binding MyDice[4].FaceDie.Value}"/>
-    </StackPanel>
+    <DockPanel Name="diceRoller" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+        <Button Content="Roll!" DockPanel.Dock="Bottom" Margin="0,5,0,50" Padding="0,10,0,10" Command="{Binding Roll}"></Button>
+        <ItemsControl ItemsSource="{Binding MyDice}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"></StackPanel>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <CheckBox IsChecked="{Binding Keep.Value}" VerticalContentAlignment="Bottom" Margin="5">
+                        <myControl:ControlDie  Width="48" Height="48" DieValue="{Binding FaceDie.Value}"/>
+                    </CheckBox>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            
+        </ItemsControl>
+    </DockPanel>
 </Window>
