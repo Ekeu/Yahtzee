@@ -35,32 +35,4 @@ namespace Yahtzee
             }
         }
     }
-
-    class RollCommand : ICommand
-    {
-        public event EventHandler CanExecuteChanged;
-        private readonly  RollDiceViewModel viewModel;
-
-        public RollCommand(RollDiceViewModel viewModel)
-        {
-            this.viewModel = viewModel;
-            viewModel.CanRoll.PropertyChanged += (sender, args) =>
-            {
-                if (CanExecuteChanged != null)
-                {
-                    CanExecuteChanged(this, new EventArgs());
-                }
-            };
-        }
-
-        public bool CanExecute(object parameter)
-        {
-            return viewModel.CanRoll.Value;
-        }
-
-        public void Execute(object parameter)
-        {
-            viewModel.PerformRolling();
-        }
-    }
 }

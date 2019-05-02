@@ -11,7 +11,7 @@ namespace Yahtzee
     {
         private static RollCommand rolling;
 
-        readonly static List<ViewDieModel> dice = new List<ViewDieModel> {
+        private readonly  IList<ViewDieModel> dice = new List<ViewDieModel> {
             new ViewDieModel(),
             new ViewDieModel(),
             new ViewDieModel(),
@@ -21,8 +21,9 @@ namespace Yahtzee
 
         public  RollDiceViewModel()
         {
+            Initialize();
+            //dice = Enumerable.Range(1, 5).Select(_ => new ViewDieModel()).ToList().AsReadOnly();
             RollsLeft = new Cell<int>(3);
-            CanRoll = new Cell<bool>();
             CanRoll = Derived.Create(RollsLeft, n => n > 0);
             rolling = new RollCommand(this);
             //DiceRoll = Derived.Create(dice.Select(die => die.FaceDie), ns => new RollingDice(ns.ToArray()));
@@ -48,7 +49,7 @@ namespace Yahtzee
 
         public ICell<RollingDice> DiceRoll { get; private set; }
 
-        public List<ViewDieModel> MyDice
+        public IList<ViewDieModel> MyDice
         {
             get
             {
@@ -56,7 +57,7 @@ namespace Yahtzee
             }
         }
 
-        public void PerformRolling()
+        private void PerformRolling()
         {
             MyDice[0].Rolling();
             MyDice[1].Rolling();
@@ -66,5 +67,68 @@ namespace Yahtzee
             --RollsLeft.Value;
         }
 
+        public void ResetGame()
+        {
+            UnselectAllDice();
+            RollDice();
+            this.RollsLeft.Value = 2;
+        }
+
+        private void RollDice()
+        {
+            foreach (var die in dice)
+            {
+                die.Rolling();
+            }
+        }
+
+        private void Initialize()
+        {
+            foreach (var die in dice)
+            {
+                while((die.FaceDie.Value) == 1)
+                {
+                    die.Rolling();
+                }
+            }
+        }
+
+        private void UnselectAllDice()
+        {
+            foreach(var die in dice)
+            {
+                die.Keep.Value = false;
+            }
+        }
+
+        private class RollCommand : ICommand
+        {
+            public event EventHandler CanExecuteChanged;
+            private readonly RollDiceViewModel viewModel;
+
+            public RollCommand(RollDiceViewModel viewModel)
+            {
+                this.viewModel = viewModel;
+                viewModel.CanRoll.PropertyChanged += (sender, args) =>
+                {
+                    if (CanExecuteChanged != null)
+                    {
+                        CanExecuteChanged(this, new EventArgs());
+                    }
+                };
+            }
+
+            public bool CanExecute(object parameter)
+            {
+                return viewModel.CanRoll.Value;
+            }
+
+            public void Execute(object parameter)
+            {
+                viewModel.PerformRolling();
+            }
+
+        }
     }
+
 }
