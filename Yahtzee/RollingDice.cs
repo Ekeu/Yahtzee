@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Yahtzee
 {
-    class RollingDice
+    public class RollingDice
     {
         private readonly int[] dice;
         
@@ -29,18 +29,18 @@ namespace Yahtzee
                 return dice[index];
             }
         }
-        public IList<int> generateList()
+        public IList<int> AsList()
         {
             return new List<int>(dice);
         }
-        public ISet<int> generateSet()
+        public ISet<int> AsSet()
         {
             return new HashSet<int>(dice);
         }
-        /*public FrequencyTable<int> AsFrequencyTable()
+        public FrequencyTable<int> AsFrequencyTable()
         {
             return new FrequencyTable<int>(dice);
-        }*/
+        }
 
     }
 }

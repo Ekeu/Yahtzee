@@ -20,11 +20,13 @@ namespace Yahtzee
     /// </summary>
     public partial class MainWindow : Window
     {
+        private RollDiceViewModel rollDiceViewModel;
         public MainWindow()
         { 
             InitializeComponent();
-            RollDiceViewModel rollDiceViewModel = new RollDiceViewModel();
+            rollDiceViewModel = new RollDiceViewModel();
             diceRoller.DataContext = rollDiceViewModel;
+            scoreSheet.DataContext = new ScoreSheetViewModel(new ScoreSheet(), rollDiceViewModel);
         }
     }
 }

@@ -64,6 +64,8 @@
     <Compile Include="ControlDie.xaml.cs">
       <DependentUpon>ControlDie.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ScoreSheet.cs" />
+    <Compile Include="ScoringCategory.cs" />
     <Compile Include="ViewDieModel.cs" />
     <Page Include="DiceRoller.xaml">
       <SubType>Designer</SubType>

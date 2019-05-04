@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace Yahtzee
 {
-    class RollDiceViewModel
+    public class RollDiceViewModel
     {
         private static RollCommand rolling;
 
@@ -26,7 +26,7 @@ namespace Yahtzee
             RollsLeft = new Cell<int>(3);
             CanRoll = Derived.Create(RollsLeft, n => n > 0);
             rolling = new RollCommand(this);
-            //DiceRoll = Derived.Create(dice.Select(die => die.FaceDie), ns => new RollingDice(ns.ToArray()));
+            DiceRoll = Derived.Create(dice.Select(die => die.FaceDie), ns => new RollingDice(ns.ToArray()));
         }
 
         public ICommand Roll
@@ -47,14 +47,17 @@ namespace Yahtzee
             get; set;
         }
 
-        public ICell<RollingDice> DiceRoll { get; private set; }
-
         public IList<ViewDieModel> MyDice
         {
             get
             {
                 return dice;
             }
+        }
+
+        public ICell<RollingDice> DiceRoll
+        {
+            get; private set;
         }
 
         private void PerformRolling()
