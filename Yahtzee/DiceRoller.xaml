@@ -6,8 +6,8 @@
              xmlns:local="clr-namespace:Yahtzee"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-	<DockPanel Name="diceRoller" >
-		<Button Content="Roll!" DockPanel.Dock="Bottom" Margin="0,5,0,50" Padding="0,10,0,10" Command="{Binding Roll}"></Button>
+    <DockPanel Name="diceRoller" >
+        <Button Content="Roll Dice !" DockPanel.Dock="Bottom" Margin="0,5,0,20" Padding="0,10,0,10" Command="{Binding Roll}"></Button>
 		<ItemsControl ItemsSource="{Binding MyDice}">
 			<ItemsControl.ItemsPanel>
 				<ItemsPanelTemplate>
@@ -38,5 +38,5 @@
 			</ItemsControl.ItemTemplate>
 
 		</ItemsControl>
-	</DockPanel>
+    </DockPanel>
 </UserControl>

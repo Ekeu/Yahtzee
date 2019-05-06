@@ -38,7 +38,7 @@ namespace Yahtzee
 
     public class ScoreLineViewModel
     {
-        private ScoreLine scoreLine;
+        private readonly ScoreLine scoreLine;
         private readonly RollDiceViewModel rollingDice;
         public String CategoryName
         {
@@ -48,14 +48,14 @@ namespace Yahtzee
         {
             get { return DiceRollScore.Value; }
         }
-        ICell<int> AssignedScore
+        public ICell<int> AssignedScore
         {
             get
             {
                 return scoreLine.Score;
             }
         }
-        ICell<bool> IsAssigned
+        public ICell<bool> IsAssigned
         {
             get
             {
@@ -69,6 +69,7 @@ namespace Yahtzee
             this.scoreLine = scoreLine;
             this.rollingDice = rollingDice;
             DiceRollScore = Derived.Create(rollingDice.DiceRoll, scoreLine.Category.Score);
+            Assign = new AssignCommand(this);
         }
 
         public ICommand Assign { get; private set; }
@@ -107,13 +108,18 @@ namespace Yahtzee
 
     public class ScoreSheetViewModel
     {
-        private ScoreSheet scoreSheet;
+        private readonly ScoreSheet scoreSheet;
         private readonly IList<ScoreLineViewModel> scoreLines;
         private readonly RollDiceViewModel rollingDice;
 
         public IList<ScoreLineViewModel> ScoreLines
         {
             get { return scoreLines; }
+        }
+
+        public int Total
+        {
+            get { return scoreSheet.Total.Value; }
         }
 
         public ScoreSheetViewModel(ScoreSheet scoreSheet, RollDiceViewModel rollingDice)

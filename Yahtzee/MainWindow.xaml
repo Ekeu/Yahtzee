@@ -6,51 +6,55 @@
         xmlns:local="clr-namespace:Yahtzee"
         xmlns:myControl ="clr-namespace:Yahtzee"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-	<DockPanel>
+        Title="YAHTZEE" Height="450" Width="800">
+	<DockPanel Background="LightBlue">
         <myControl:DiceRoller x:Name="diceRoller" HorizontalAlignment="Center" VerticalAlignment="Center" DockPanel.Dock="Bottom" />
-        <ScrollViewer>
-            <ItemsControl x:Name="scoreSheet" ItemsSource="{Binding ScoreLines}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Text="{Binding CategoryName}"
+        <StackPanel>
+            <TextBlock Text="YAHTZEE" VerticalAlignment="Top" HorizontalAlignment="Center" FontFamily="ManusTrial" FontSize="50" Foreground="BlueViolet"/>
+            <ScrollViewer Height = "455" HorizontalScrollBarVisibility = "Auto" VerticalScrollBarVisibility = "Auto">
+                <ItemsControl x:Name="scoreSheet" ItemsSource="{Binding ScoreLines}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{Binding CategoryName}"
                                    Grid.Column="0"
                                    HorizontalAlignment="Right"
                                    VerticalAlignment="Center"
                                    Margin="5"                                   
                                    FontWeight="Bold" />
-                            <Button Grid.Column="1" Command="{Binding Assign}" Margin="5" HorizontalAlignment="Left">
-                                <Button.Template>
-                                    <ControlTemplate TargetType="{x:Type Button}">
-                                        <Border x:Name="border" Padding="5" Width="64" Height="32" BorderThickness="1">
-                                            <TextBlock x:Name="score" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                        </Border>
-                                        <ControlTemplate.Triggers>
-                                            <Trigger Property="IsEnabled" Value="True">
-                                                <Setter TargetName="score" Property="Text" Value="{Binding DiceRollScore.Value}" />
-                                                <Setter TargetName="border" Property="Background" Value="LightGreen" />
-                                            </Trigger>
-                                            <Trigger Property="IsEnabled" Value="False">
-                                                <Setter TargetName="score" Property="Text" Value="{Binding AssignedScore.Value}" />
-                                                <Setter TargetName="border" Property="Background" Value="LightGray" />
-                                            </Trigger>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter TargetName="border" Property="BorderBrush" Value="Red" />
-                                            </Trigger>
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
-                                </Button.Template>
-                            </Button>
-                        </Grid>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>
+                                <Button Grid.Column="1" Command="{Binding Assign}" Margin="5" HorizontalAlignment="Left">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border x:Name="border" Padding="5" Width="64" Height="32" BorderThickness="1">
+                                                <TextBlock x:Name="score" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsEnabled" Value="True">
+                                                    <Setter TargetName="score" Property="Text" Value="{Binding DiceRollScore.Value}" />
+                                                    <Setter TargetName="border" Property="Background" Value="BlueViolet" />
+                                                </Trigger>
+                                                <Trigger Property="IsEnabled" Value="False">
+                                                    <Setter TargetName="score" Property="Text" Value="{Binding AssignedScore.Value}" />
+                                                    <Setter TargetName="border" Property="Background" Value="LightGray" />
+                                                </Trigger>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="border" Property="BorderBrush" Value="Red" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+            <TextBlock Text="{Binding Total.Value}" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontFamily="Open Sans" FontSize="100" Foreground="BlueViolet"/>
+        </StackPanel>
     </DockPanel>
 	
 
